@@ -1,0 +1,9 @@
+[Unit]
+Description=Fullscreen Daemon
+After=graphical.target
+
+[Service]
+Type=simple
+ExecStart=%h/configs/scripts/fullscreen_single
+Restart=always
+RestartSec=2

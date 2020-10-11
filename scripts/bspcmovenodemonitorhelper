@@ -1,0 +1,5 @@
+#!/bin/sh
+
+desktop_num=$1
+monitor=$(bspc query --monitors --monitor focused --names)
+bspc node focused --to-desktop "${monitor}_${desktop_num}"

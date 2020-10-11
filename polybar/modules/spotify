@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+if [ "$(pgrep ncspot)" ]; then
+	echo $(python $configsdir/polybar/modules/ncspot_status.py -f '{play_pause_space} {artist_space}: {songs_space} ({album_space})')
+elif [ "$(pgrep spotify)" ]; then
+	echo $(python $configsdir/polybar/modules/spotify_status.py -f '{play_pause_space} {artist_space}: {songs_space} ({album_space})')
+else 
+	echo -n ""
+fi

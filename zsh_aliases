@@ -1,0 +1,120 @@
+#!/bin/zsh
+
+zmodload zsh/zpty
+
+pty() {
+	zpty pty-${UID} ${1+$@}
+	if [[ ! -t 1 ]]; then
+		setopt local_traps
+		trap '' INT
+	fi
+	zpty -r pty-${UID}
+	zpty -d pty-${UID}
+}
+
+ptyless() {
+	pty $@ | less
+}
+
+export LESS=-R
+export LESS_TERMCAP_mb=$'\E[1;31m'		# begin blink
+export LESS_TERMCAP_md=$'\E[1;36m'		# begin bold
+export LESS_TERMCAP_me=$'\E[0m'			# reset bold/blink
+export LESS_TERMCAP_so=$'\E[01;44;33m'	# begin reverse video
+export LESS_TERMCAP_se=$'\E[0m'			# reset reverse video
+export LESS_TERMCAP_us=$'\E[1;32m'		# begin underline
+export LESS_TERMCAP_ue=$'\E[0m'			# reset underline
+
+alias b='./build.sh'
+alias dnd='dragon-drag-and-drop'
+alias pushall='git remote | xargs -L1 git push --all'
+
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+alias -g .......='../../../../../..'
+alias -g ........='../../../../../../..'
+alias -g .........='../../../../../../../..'
+alias -g ..........='../../../../../../../..'
+alias -g ...........='../../../../../../../../..'
+alias -g ............='../../../../../../../../../..'
+alias -g .............='../../../../../../../../../../..'
+alias cfg="cd $HOME/configs"
+
+alias srch='grep -RI --color=auto'
+alias fzf=$'fzf --preview=\'pistol {}\''
+alias fm=vifmrun
+
+alias tschüss='shutdown 0'
+alias shitdown='shutdown 0' # i mistyped this so many times
+
+alias mnt='bashmount'
+alias reload_clock='sudo ntpd -qg'
+alias ncmpcpp='ncmpcpp -c $XDG_CONFIG_DIR/ncmpcpp/config'
+alias tmux="tmux -f $XDG_CONFIG_DIR/tmux/tmux.conf"
+alias la='ls -laa'
+alias spt='pgrep spotifyd >/dev/null || systemctl --user restart spotifyd.service; spt'
+
+alias log="git log --oneline --graph --all"
+alias gs="git status"
+alias gd="git diff"
+alias gc="git checkout"
+
+alias fav_wp='cp "$(readlink -f $HOME/Pictures/wallpaper)" $HOME/Pictures/fav_wallpapers'
+alias script='$(find $HOME/configs/scripts/ -type f -printf %P\\n | dmenu)'
+
+alias copy='xclip -selection clipboard'
+alias paste='xclip -o -selection clipboard'
+alias cpf='fzf --height 40% | xclip -selection clipboard'
+
+if which exa ; then
+	if exa --icons; then
+		alias ls='exa --icons'
+	else
+		alias ls='exa'
+	fi
+fi >/dev/null 2>&1
+
+silent_bg() {
+	$@ >/dev/null 2>&1 & disown
+}
+
+if which evince; then
+	alias pdf='silent_bg evince'
+elif which llpp ; then
+	alias pdf='silent_bg llpp'
+else
+	alias pdf='silent_bg xdg-open'
+fi >/dev/null
+
+swap() {
+	[ "$#" -eq "2" ] && [ -e "$1" ] && [ -e "$2" ] || \
+		{ echo "Wrong inputs!"; return; }
+	while true; do
+		r=$RANDOM
+		[ -e "${1}${r}" ] && continue;
+		mv "${1}" "${1}${r}"
+		mv "${2}" "${1}"
+		mv "${1}${r}" "${2}"
+		return;
+	done
+}
+
+function execute_if_argument() {
+	if [ $# -gt 1 ]; then
+		$@
+	fi
+}
+
+alias vf='execute_if_argument $EDITOR $(fzf --height 40%)'
+alias cf='execute_if_argument cd $(find . -type d | fzf --height 40%)'
+
+termin() {
+	TIME="$1"
+	MESSAGE="$2"
+	sleep $(($(date --date="$TIME" +%s) - $(date +%s))) && \
+	for i in $(seq 1 100); do
+		notify-send "$MESSAGE";
+	done
+}

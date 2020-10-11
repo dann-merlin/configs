@@ -1,0 +1,5 @@
+! Swap caps lock and escape
+remove Caps_Lock
+remove Escape
+keycode 9 = Caps_Lock
+keycode 66 = Escape

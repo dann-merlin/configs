@@ -1,0 +1,10 @@
+#!/bin/sh
+
+edit_me=$(printf '%s' "$(basename -a $(find $HOME/bin -mindepth 1 -executable)\n$(find $HOME/configs/scripts -mindepth 1 -executable))" | sort - | uniq | sed -e 's; ;\n;g' | dmenu)
+
+[ "$edit_me" = "" ] && exit 0
+
+edit_file="$HOME/configs/scripts/$edit_me"
+[ -f "$HOME/bin/$edit_me" ] && edit_file="$HOME/bin/$edit_me"
+
+vim $edit_file

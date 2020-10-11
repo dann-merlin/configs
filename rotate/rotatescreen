@@ -1,0 +1,8 @@
+#!/bin/sh
+
+inverted=$(xrandr -q | grep -v 'disconnected' | grep 'connected' | awk '/ /{ print $5 }')
+if [ "$inverted" = "inverted" ]; then
+	xrandr -o normal
+else 
+	xrandr -o inverted
+fi

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ $# != 1 ]; then
+	echo "need st folder as argument"
+	exit 0
+fi
+
+cd "$1" || exit 1
+
+# patch -p1 <~/configs/st_patches/st-anysize-0.8.1.diff
+patch -p1 <~/configs/st_patches/st-alpha-0.8.2.diff && \
+patch -p1 <~/configs/st_patches/st-bold-is-not-bright-20190127-3be4cf1.diff && \
+patch -p1 <~/configs/st_patches/st-xresources-20200604-9ba7ecf.diff && \
+patch -p1 <~/configs/st_patches/st-font2-20190416-ba72400.diff && \
+patch -p1 <~/configs/st_patches/readmoreresources.diff && \
+patch -p1 <~/configs/st_patches/st-alpha-toggle-sigusr1-0.8.4.diff && \
+exit 0
+exit 1

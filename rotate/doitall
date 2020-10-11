@@ -1,0 +1,5 @@
+#!/bin/sh
+
+$HOME/configs/rotate/rotatescreen
+$HOME/configs/rotate/rotatetouchscreen
+$HOME/configs/rotate/disabletouchpad

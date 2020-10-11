@@ -1,0 +1,12 @@
+#!/bin/sh
+
+action=$1
+desktop_num=$2
+monitor=$(bspc query --monitors --monitor focused --names)
+bspc $action "${monitor}_${desktop_num}"
+
+# if [ $1 = "secondDesktop" ]
+# then
+# 	mon=`expr $3 + 10`
+# 	bspc $2 ^$mon
+# fi

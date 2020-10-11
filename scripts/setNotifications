@@ -1,0 +1,4 @@
+#!/bin/sh
+killall deadd-notification-center 
+while pgrep -u "$(whoami)" -x deadd-notification-center ; do sleep 1; done
+deadd-notification-center &

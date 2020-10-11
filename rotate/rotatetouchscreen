@@ -1,0 +1,9 @@
+#!/bin/sh
+
+trafo=$(xinput --list-props 'pointer:ELAN Touchscreen' | grep 'Coordinate Transformation Matrix' | awk '/ / { print $5}' | head -zc 1)
+
+if [ "$trafo" = "1" ]; then
+    xinput set-prop 'pointer:ELAN Touchscreen' 'Coordinate Transformation Matrix' -1 0 1 0 -1 1 0 0 1
+else
+    xinput set-prop 'pointer:ELAN Touchscreen' 'Coordinate Transformation Matrix' 1 0 0 0 1 0 0 0 1
+fi

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+xdg-mime default llpp.desktop application/pdf
+xdg-mime default deadbeef.desktop audio
+xdg-mime default vim.desktop text/plain

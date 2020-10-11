@@ -1,0 +1,50 @@
+From 1218f86ca815e3ef3fd1e16bbb6be2b695b0c1f3 Mon Sep 17 00:00:00 2001
+From: Merlin Danner <merlin.danner@fau.de>
+Date: Sun, 19 Jul 2020 07:51:46 +0200
+Subject: [PATCH] Toggle Alpha with USR1
+
+---
+ x.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/x.c b/x.c
+index eea0964..5273f89 100644
+--- a/x.c
++++ b/x.c
+@@ -1965,6 +1965,25 @@ usage(void)
+ 	    " [stty_args ...]\n", argv0, argv0);
+ }
+
++void
++handleUSR1(int sig)
++{
++	/* config_init(); */
++	static float alphabackup = 1.f;
++	if( alpha != 1.f )
++	{
++		alphabackup = alpha;
++		alpha = 1.f;
++	}
++	else
++	{
++		alpha = alphabackup;
++	}
++	signal(SIGUSR1, &handleUSR1);
++	xloadcols();
++	redraw();
++}
++
+ int
+ main(int argc, char *argv[])
+ {
+@@ -2033,6 +2052,7 @@ run:
+ 		die("Can't open display\n");
+
+ 	config_init();
++	signal(SIGUSR1, &handleUSR1);
+ 	cols = MAX(cols, 1);
+ 	rows = MAX(rows, 1);
+ 	tnew(cols, rows);
+--
+2.27.0
+

@@ -1,0 +1,14 @@
+diff --git a/config.def.h b/config.def.h
+index aaa697a..1d9e306 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -187,6 +187,9 @@ ResourcePref resources[] = {
+ 		{ "tabspaces",    INTEGER, &tabspaces },
+ 		{ "cwscale",      FLOAT,   &cwscale },
+ 		{ "chscale",      FLOAT,   &chscale },
++		{ "alpha",        FLOAT,   &alpha },
++		{ "font2",        STRING,  &font2[0] },
++		{ "font3",        STRING,  &font2[1] },
+ };
+ 
+ /*

@@ -1,0 +1,77 @@
+#!/bin/bash
+
+programname='picom'
+if ! which picom; then
+	if which compton; then
+		programname='compton'
+	else
+		exit 1
+	fi
+fi 2>/dev/null
+
+startPicom() {
+	echo "starting $programname..."
+	if which "$programname"; then
+		killall "$programname"
+		while pgrep -u "$(whoami)" -x "$programname"; do sleep 1; done
+		# query=$(lspci -vmmk -d "1002:" | grep "vfio-pci" -c)	#1002 is the vendor id of amd gpus
+		# [ "$query" = 2 ] && exit
+		"$programname" -b --experimental-backends --config "$XDG_CONFIG_HOME/picom.conf" || \
+		"$programname" -b --config "$XDG_CONFIG_HOME/picom.conf"
+	fi >/dev/null 2>&1
+}
+
+checkBlur() {
+	echo "checking blur"
+	hashHW=$(lshw -numeric -c display 2>/dev/null | sha256sum - | head -c 8)
+	PERF_DIR=$XDG_CACHE_HOME
+	[ -z "$PERF_DIR" ] && PERF_DIR="$HOME/.cache"
+	PERF_DIR="$PERF_DIR/blurhwperformance"
+	mkdir -p "$PERF_DIR"
+
+	fps='INIT'
+	if [ -f "$PERF_DIR/$hashHW" ]; then
+		fps=$(cat "$PERF_DIR/$hashHW")
+	else
+		if ! which glxgears; then
+			return 1
+		fi 2>/dev/null
+		while read -r _ _ _ _ _ _ tmpfps _
+		do
+			fps=$(printf '%s' "$tmpfps" | cut -d '.' -f 1 - | cut -f 1 -)
+			if printf '%s' "$fps" | grep -q -e '^[0-9]\+$'; then
+				break
+			fi
+		done < <(glxgears) 2>/dev/null
+		pkill glxgears
+		printf '%s' "$fps" > "$PERF_DIR/$hashHW"
+	fi
+
+	[ "$fps" -gt "40" ] && return 0
+	return 1
+}
+
+setBlur() {
+	[ "$(readlink -f $HOME/configs/picom.conf.blur)" != "$(readlink -f $XDG_CONFIG_HOME/picom.conf)" ] && \
+	ln -sf "$HOME/configs/picom.conf.blur" "$XDG_CONFIG_HOME/picom.conf" && \
+	return 0
+	return 1
+}
+
+unsetBlur() {
+	[ "$(readlink -f $HOME/configs/picom.conf.noblur)" != "$(readlink -f $XDG_CONFIG_HOME/picom.conf)" ] && \
+	ln -sf "$HOME/configs/picom.conf.noblur" "$XDG_CONFIG_HOME/picom.conf" && \
+	return 0
+	return 1
+}
+
+if true; then
+	startPicom
+	if checkBlur; then
+		setBlur && \
+		startPicom
+	else
+		unsetBlur && \
+		startPicom
+	fi
+fi #>/dev/null 2>&1

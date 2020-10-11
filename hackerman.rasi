@@ -1,0 +1,121 @@
+/**
+ * ROFI Color theme
+ * Copyright: Merlin Danner
+ */
+
+configuration {
+	display-drun: "";
+	display-run: "";
+	display-window: "";
+	display-ssh: "ssh";
+	show-icons: true;
+	location:						3;
+	m: "0";
+}
+
+* {
+	foreground:						#00FF00FF;
+	background:						#00100050;
+	background-selected:			#00FF0020;
+	background-alternate:			#000000A0;
+	background-color:				#00000040;
+	font:							"TerminessTTF Nerd Font Bold 24";
+	/* fullscreen: true; */
+}
+
+#window {
+	width:							30%;
+	height:							100%;
+	background-color:				@background;
+	border-color:					@foreground;
+	border:							0px 0px 0px 1px;
+	padding:						0;
+}
+#mainbox {
+	border:							0;
+	padding:						0;
+}
+#textbox {
+	text-color:						@foreground;
+}
+#listview {
+	fixed-height:					0;
+	border:							2px 0px 0px;
+	border-color:					@foreground;
+	spacing:						2px ;
+	scrollbar:						false;
+	padding:						5px 0px 0px;
+}
+#element {
+	border:							0;
+	padding:						2px ;
+}
+#element.normal.normal {
+	background-color:				@background;
+	text-color:						@foreground;
+}
+#element.normal.urgent {
+	background-color: @background;
+	text-color:	   @foreground;
+}
+#element.normal.active {
+	background-color: @background;
+	text-color:	   @foreground;
+}
+#element.selected.normal {
+	background-color:				@background-selected;
+	text-color:						@foreground;
+	border-color:					@foreground;
+	border:							1px;
+}
+#element.selected.urgent {
+	background-color: @background;
+	text-color:	   @foreground;
+}
+#element.selected.active {
+	background-color: @background;
+	text-color:	   @foreground;
+}
+#element.alternate.normal {
+	background-color: @background-alternate;
+	text-color:	   @foreground;
+}
+#element.alternate.urgent {
+	background-color: @background-alternate;
+	text-color:	   @foreground;
+}
+#element.alternate.active {
+	background-color: @background-alternate;
+	text-color:	   @foreground;
+}
+#button.selected {
+	background-color: @background;
+	text-color:	   @foreground;
+}
+#inputbar {
+	spacing:	0;
+	text-color: @foreground;
+	padding:	1px ;
+}
+#case-indicator {
+	spacing:	0;
+	text-color: @foreground;
+}
+#entry {
+	spacing:	0;
+	text-color: @foreground;
+}
+#prompt {
+	spacing:	0;
+	padding: 0px 0px 0px 10px;
+	text-color: @foreground;
+}
+#inputbar {
+	children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
+}
+#textbox-prompt-colon {
+	expand:	 false;
+	str:		":";
+	margin:	 0px 0.3em 0em 0em ;
+	text-color: @foreground;
+}

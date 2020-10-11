@@ -1,0 +1,62 @@
+URxvt.perl-ext: default,url-select
+URxvt.perl-ext-common: resize-font,clipboard,theme
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.url-select.launcher: /usr/bin/xdg-open
+URxvt.url-select.underline: true
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt.matcher.rend.0: Uline Bold fg5
+URxvt.keysym.F11: perl:fullscreen:switch
+URxvt.clipboard.autocopy: true
+URxvt.foreground: White
+URxvt.underlineColor: yellow
+URxvt.saveLines: 1000
+URxvt.depth: 32
+URxvt.scrollBar: false
+URxvt.lineSpace:
+URxvt.letterSpace:
+URxvt.iconFile: /home/merlin/Pictures/.icons/.emoji_doge.ico
+URxvt.title: Terminal
+URxvt.scrollstyle: plain
+URxvt.font: xft:Source Code Pro:Light Italic:size=16:antialias=true,xft:Code2000:antialias=true
+URxvt.boldFont: xft:Source Code Pro:Medium Italic:size=16:antialias=true
+URxvt.italicFont: xft:Source Code Pro:Light:size=16:anitalias=true
+URxvt.cursorBlink: true
+URxvt.transparent: true
+URxvt.shading: 30
+URxvt.blurRadius: 0
+URxvt.background: #474747
+URxvt.theme.transparent.foreground: #000000
+URxvt.theme.transparent.transparent: true
+URxvt.theme.transparent.shading: 30
+URxvt.theme.transparent.blurRadius: 30
+URxvt.theme.transparent.background: #474747
+URxvt.theme.dark.background: #d243ef
+URxvt.theme.dark.foreground: #ffffff
+URxvt.theme.dark.transparent: false
+URxvt.termName: xterm-256color
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+URxvt.tabbed.tabbar-fg: 27
+URxvt.tabbed.tabbar-bg: 234
+URxvt.tabbed.tab-fg: 82
+URxvt.tabbed.tab-bg: 238
+
+St.alpha: 0.8
+/* st.font: Source Code Pro:pixelsize=24:antialias=false:autohint=true:style=Light Italic */
+/* st.font: Liberation Mono:pixelsize=24:antialias=false:autohint=true */
+/* st.font: NK57 Monospace:pixelsize=20:antialias=false:autohint=true:style=Condensed Light Italic,Italic */
+*.font: SauceCodePro Nerd Font Mono:pixelsize=24:antialias=true:autohint=true:style=Light Italic,Italic
+/* st.font: Roboto Mono:pixelsize=20:antialias=true:autohint=true:style=Light Italic */
+/* st.font2: Font Awesome 5 Free:pixelsize=24:antialias=false:autohint=true:style=Regular */
+st.font3: JoyPixels:pixelsize=20:antialias=false:autohint=true
+st.font2: Symbola:pixelsize=20:antialias=false:autohint=true
+/* st.font3: JoyPixels:pixelsize=20:antialias=false:autohint=true */
+/* background is actually cursor color */
+st.background: white
+/* st.foreground: white */
+! st.termname: st-256color
+! st.borderpx: 2
+/* st.background: #000000 */
+/* st.foreground: white */
+/* st.cursorColor: white */

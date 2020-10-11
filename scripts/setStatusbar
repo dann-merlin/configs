@@ -1,0 +1,16 @@
+#!/bin/sh
+
+killall -q polybar & while pgrep -u $(whoami) -x polybar >/dev/null
+do
+	sleep 1
+done
+
+for line in $(bspc query -M --names); do
+	BARSIZE=`expr $(xrandr | grep "$line" | sed -e 's/primary //g' -e 's/+/ /g' -e 's/x/ /g' | awk -e '{ print $3 }') / 100 `
+	font=$(xrdb -query '*.font' | grep '*.font' | tail -c +9 | sed -e "s/size=[0-9]*/size=$(printf '%s*0.7\n' $BARSIZE | bc)/g")
+	MONITOR=$line BARSIZE="$BARSIZE" FONT=$font polybar -r homeDesktopBar &
+	ln -sf /tmp/polybar_mqueue.$! /tmp/polybar.$line
+	bspc config -m $line top_padding "$BARSIZE"
+done 2>/dev/null
+
+exit 0

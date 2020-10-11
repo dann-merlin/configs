@@ -1,0 +1,58 @@
+highlight clear
+highlight Border	cterm=none	ctermfg=235	ctermbg=default
+
+highlight TopLine	cterm=none	ctermfg=214	ctermbg=235
+highlight TopLineSel	cterm=bold	ctermfg=214	ctermbg=237
+
+highlight Win		cterm=none	ctermfg=223	ctermbg=default
+"highlight OtherWin  cterm=none	ctermfg=223	ctermbg=236
+highlight Directory	cterm=bold	ctermfg=109	ctermbg=default
+highlight CurrLine	cterm=bold,inverse	ctermfg=default	ctermbg=default
+highlight OtherLine	cterm=bold	ctermfg=default	ctermbg=235
+highlight Selected	cterm=none	ctermfg=223	ctermbg=237
+
+highlight JobLine	cterm=bold	ctermfg=116	ctermbg=238
+highlight StatusLine	cterm=bold	ctermfg=144	ctermbg=236
+highlight ErrorMsg	cterm=bold	ctermfg=167	ctermbg=default
+highlight WildMenu	cterm=bold	ctermfg=235	ctermbg=144
+highlight CmdLine	cterm=none	ctermfg=223	ctermbg=default
+
+highlight Executable	cterm=bold	ctermfg=142	ctermbg=default
+highlight Link		cterm=none	ctermfg=132	ctermbg=default
+highlight BrokenLink	cterm=bold	ctermfg=167	ctermbg=default
+highlight Device	cterm=none,standout	ctermfg=214	ctermbg=default
+highlight Fifo		cterm=none	ctermfg=172	ctermbg=default
+highlight Socket	cterm=bold	ctermfg=223	ctermbg=default
+
+" highlight win cterm=none ctermfg=white ctermbg=default
+" highlight directory cterm=bold ctermfg=cyan ctermbg=default
+" highlight link cterm=bold ctermfg=blue ctermbg=default
+" highlight brokenlink cterm=bold ctermfg=red ctermbg=default
+" highlight socket cterm=bold ctermfg=magenta ctermbg=default
+" highlight device cterm=bold ctermfg=red ctermbg=default
+" highlight fifo cterm=bold ctermfg=cyan ctermbg=default
+" highlight executable cterm=bold ctermfg=green ctermbg=default
+" highlight selected cterm=bold ctermfg=magenta ctermbg=default
+" highlight currline cterm=bold,reverse ctermfg=default ctermbg=default
+" highlight topline cterm=none ctermfg=black ctermbg=white
+" highlight toplinesel cterm=bold ctermfg=black ctermbg=default
+" highlight statusline cterm=bold ctermfg=black ctermbg=blue
+" highlight wildmenu cterm=underline,reverse ctermfg=white ctermbg=black
+" highlight cmdline cterm=none ctermfg=white ctermbg=default
+" highlight errormsg cterm=none ctermfg=red ctermbg=default
+" highlight border cterm=none ctermfg=white ctermbg=default
+" highlight jobline cterm=bold,reverse ctermfg=black ctermbg=white
+" highlight suggestbox cterm=bold ctermfg=default ctermbg=default
+" highlight cmpmismatch cterm=bold ctermfg=white ctermbg=red
+" highlight auxwin cterm=bold,underline,reverse,standout,italic ctermfg=default ctermbg=default
+" highlight tabline cterm=none ctermfg=white ctermbg=default
+" highlight tablinesel cterm=bold,reverse ctermfg=default ctermbg=default
+" highlight user1 cterm=bold,underline,reverse,standout,italic ctermfg=default ctermbg=default
+" highlight user2 cterm=bold,underline,reverse,standout,italic ctermfg=default ctermbg=default
+" highlight user3 cterm=bold,underline,reverse,standout,italic ctermfg=default ctermbg=default
+" highlight user4 cterm=bold,underline,reverse,standout,italic ctermfg=default ctermbg=default
+" highlight user5 cterm=bold,underline,reverse,standout,italic ctermfg=default ctermbg=default
+" highlight user6 cterm=bold,underline,reverse,standout,italic ctermfg=default ctermbg=default
+" highlight user7 cterm=bold,underline,reverse,standout,italic ctermfg=default ctermbg=default
+" highlight user8 cterm=bold,underline,reverse,standout,italic ctermfg=default ctermbg=default
+" highlight user9 cterm=bold,underline,reverse,standout,italic ctermfg=default ctermbg=default

@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+edit_me="$(dmenu < $HOME/configs/configfiles)"
+[ -z "$edit_me" ] && exit
+
+vim $HOME/configs/$edit_me

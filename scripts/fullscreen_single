@@ -1,0 +1,92 @@
+#!/bin/sh
+
+### ATTENTION ###
+#
+# For this script to work one desktop name cannot be a subset of another one
+# Desktops like this: I II III ... are therefore not possible
+# My desktops are named in this format:
+# HDMI-1-1 HDMI-1-2 HDMI-1-3 ...
+# so because n <= 9 here, I don't run into probems
+#
+# I tried hard to keep this script POSIX-compliant, because I hate myself
+# It works with dash, so it probably works with other POSIX-compliant shells as well like ash for example
+
+HIDDEN_DESKTOPS=''
+
+isHidden() {
+	bspc node "${1}.hidden" -R 0
+	return $?
+}
+
+simple_hide() {
+	monitorname="$1"
+	xdo hide -dr
+	# xdo hide -N polybar
+	# echo "cmd:hide" >> "/tmp/polybar.$monitorname"
+}
+
+simple_show() {
+	focused_node=$(bspc query --nodes --node focused)
+	xdo show -d
+	# xdo show -N polybar
+	# echo "cmd:show" >> "/tmp/polybar.$monitorname"
+	bspc node "$focused_node" --focus
+}
+
+comp_hide() {
+	desktop="$1"
+	HIDE_THIS=$(bspc query -N -d "$desktop" -n .window -n .\!fullscreen )
+	printf 'Hide this:\n%s\n END \n' "$HIDE_THIS"
+	I_HID_THIS=""
+	for node in $HIDE_THIS; do
+		# The next line is for skipping nodes, that are already hidden ( sometimes I hide nodes manually ). I don't know of a better way to easyly check if a node is hidden.
+		isHidden "$node" && continue
+
+		bspc node "$node" -g hidden=on
+		echo "turned off: $node"
+		I_HID_THIS=$(printf '%s %s' "$I_HID_THIS" "$node")
+	done
+	_HIDDEN_DESKTOPS=$(printf '%s' "$HIDDEN_DESKTOPS" | grep -v "$desktop")
+	old_HIDDEN=$(printf '%s' "$HIDDEN_DESKTOPS" | grep "$desktop" | cut -d ' ' -f 1 --complement)
+	HIDDEN_DESKTOPS=$(printf '%s\n%s %s %s' "$_HIDDEN_DESKTOPS" "$desktop" "$I_HID_THIS" "$old_HIDDEN")
+}
+
+comp_show() {
+	desktop="$1"
+	SHOW_THIS=$(printf '%s' "$HIDDEN_DESKTOPS" | grep "$desktop" | cut -d ' ' -f 1 --complement)
+	for node in $SHOW_THIS; do
+		bspc node "$node" -g hidden=off
+		echo "turned on: $node"
+	done
+	HIDDEN_DESKTOPS=$(printf '%s' "$HIDDEN_DESKTOPS" | grep -v "$desktop")
+}
+
+
+bspc subscribe node 2>&1 | while read -r what monitor desktop node which how dstNode
+do
+	# monitorname=$(bspc query --monitors --names --monitor "$monitor")
+	# echo "before: $HIDDEN_DESKTOPS"
+	if [ "$what" = "node_state" ]; then
+		if [ "$which" = "fullscreen" ]; then
+			if [ "$how" = "on" ]; then
+				comp_hide "$desktop"
+			elif [ "$how" = "off" ]; then
+				comp_show "$desktop"
+			fi
+		fi
+	elif [ "$what" = "node_remove" ]; then
+		comp_show "$desktop"
+	elif [ "$what" = "node_add" ]; then
+		comp_show "$desktop"
+	elif [ "$what" = "node_transfer" ]; then
+		if bspc query --nodes --node "$node".fullscreen >/dev/null; then
+			# desktop is the source desktop
+			comp_show "$desktop"
+			# how is the destination desktop
+			echo "transfering node: $what $monitor $desktop $node $which $how $dstNode"
+			comp_hide "$how"
+		fi
+	fi
+	# echo "before: $HIDDEN_DESKTOPS"
+done
+exit 0
