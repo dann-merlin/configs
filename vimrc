@@ -171,6 +171,10 @@ nmap s <Plug>(easymotion-overwin-f)
 " Coc Denylist
 " autocmd BufEnter *.c,*.cpp,*.h,*.hpp,*.rs CocDisable
 
+" clang-format
+let g:clang_format#detect_style_file=1
+let g:clang_format#auto_format=1
+
 " YCM Config
 let g:ycm_min_num_of_chars_for_completion = 2
 let g:ycm_max_num_candidates = 50
@@ -241,7 +245,15 @@ augroup line_return
 	augroup END
 
 " Remove trailing whitespaces
-autocmd BufWritePre * %s/\s\+$//e
+fun! StripTrailingWhitespace()
+    " Don't strip on these filetypes
+    if &ft =~ 'markdown'
+        return
+    endif
+    %s/\s\+$//e
+endfun
+
+autocmd BufWritePre * call StripTrailingWhitespace()
 
 " Automatically source vimrc
 autocmd BufWritePost *vimrc source %
