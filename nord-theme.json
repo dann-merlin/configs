@@ -1,0 +1,24 @@
+{
+  "name": "nord",
+  "author": "arcticicestudio",
+  "color": [
+    "#2d3241",
+    "#b14a56",
+    "#92b477",
+    "#e6c274",
+    "#6d8eb5",
+    "#a5789e",
+    "#75b3c7",
+    "#dfe3ed",
+    "#3b4358",
+    "#b14a56",
+    "#92b477",
+    "#e6c274",
+    "#6d8eb5",
+    "#a5789e",
+    "#7cafad",
+    "#e7ebf1"
+  ],
+  "foreground": "#cfd6e4",
+  "background": "#232731"
+}

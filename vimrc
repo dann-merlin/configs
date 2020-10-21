@@ -27,7 +27,7 @@ if !exists('g:vscode')
 	" let Vundle manage Vundle, required
 	Plugin 'VundleVim/Vundle.vim'
 
-		"" Language pack ""
+	"" Language pack ""
 	Plugin 'sheerun/vim-polyglot'
 	""
 
@@ -89,10 +89,12 @@ if !exists('g:vscode')
 	" Plugin 'sudo.vim'
 	" Plugin 'sbdchd/neoformat'
 	Plugin 'szw/vim-maximizer'
+	Plugin 'rrethy/vim-hexokinase'
 	""
 
 	"" Colorscheme stuff ""
-	Plugin 'flazz/vim-colorschemes'
+	" Plugin 'flazz/vim-colorschemes'
+	Plugin 'arcticicestudio/nord-vim'
 	" Plugin 'dylanaraps/wal'
 	Plugin 'morhetz/gruvbox'
 	Plugin 'vim-airline/vim-airline-themes'
@@ -118,6 +120,8 @@ if !exists('g:vscode')
 	filetype plugin indent on	" required
 endif
 filetype plugin indent on
+
+set termguicolors
 
 " keybindings
 nnoremap fs :FSHere<CR>
@@ -203,8 +207,9 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " colorscheme
-colorscheme bubblegum-256-dark
-let g:airline_theme='bubblegum'
+" colorscheme bubblegum-256-dark
+colorscheme nord
+let g:airline_theme='nord'
 if $vim_colorscheme!=""
 	" colorscheme $vim_colorscheme
 	" let g:airline_theme=$vim_colorscheme

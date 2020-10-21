@@ -1,22 +1,17 @@
 export PATH="/usr/local/bin:$PATH"
 
+[ -r "${HOME}/configs/dir_colors" ] && eval $(dircolors "${HOME}/configs/dir_colors")
+
 if which nvim 2>&1 >/dev/null; then
 	alias vim='nvim'
 	export EDITOR=nvim
 elif which vim 2>&1 >/dev/null; then
 	export EDITOR=vim
 else
-	export EDITOR=nano
+	unset EDITOR
 fi
 
 autoload -U colors && colors
-
-# Show all 256 colors with color number
-function spectrum_ls() {
-	for code in {000..255}; do
-		print -P -- "$code: %{$FG[$code]%}$ZSH_SPECTRUM_TEXT%{$reset_color%}"
-	done
-}
 
 # autocompletion
 fpath=($HOME/.config/zsh/zshfuncs $fpath)
@@ -71,8 +66,8 @@ function _git_prompt() {
 
 setopt PROMPT_SUBST
 
-PS1='%F{black}%B%K{blue}    %F{black}%K{blue}%B%n@%m%b%F{blue}█%K{white}%F{white}%K{black}%K{black}%B %D{%a %b %d} %D{%I:%M:%S%P} %F{black}%K{white}%K{cyan}%F{white} %F{black}${_exec_time}%k%F{cyan}
-%}%F{blue}%K{black}%B %~ %b%K{white}%F{black}${__git_prompt}%F{white}%k '
+PS1='%F{08}%B%K{blue}    %F{08}%K{blue}%B%n@%m%b%F{blue}█%K{white}%F{white}%K{08}%K{08}%B %D{%a %b %d} %D{%I:%M:%S%P} %F{08}%K{white}%K{cyan}%F{white} %F{08}${_exec_time}%k%F{cyan}
+%}%F{blue}%K{08}%B %~ %b%K{white}%F{08}${__git_prompt}%F{white}%k '
 
 RPS1='%F{white}%f%K{white}$(getCodeSymbol)%k%F{white}%f'
 

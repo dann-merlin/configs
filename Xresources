@@ -57,6 +57,6 @@ st.background: white
 /* st.foreground: white */
 ! st.termname: st-256color
 ! st.borderpx: 2
-/* st.background: #000000 */
-/* st.foreground: white */
+/* st.background: #FF0000 */
+st.foreground: #FF0000
 /* st.cursorColor: white */

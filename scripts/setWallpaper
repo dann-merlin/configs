@@ -19,8 +19,9 @@ while NEW_WALLPAPER=$(find $WALLPAPERS_DIR -mindepth 1  | shuf -n 1 ); ! identif
 done
 ln -sf "$(readlink -f $NEW_WALLPAPER)" "$WALLPAPER_SYMLINK"
 wal -c
-wal -i "$WALLPAPER_SYMLINK"
-which oomox-cli >/dev/null && oomox-cli "$HOME/.cache/wal/colors-oomox" -o wal >/dev/null &
+[ "$1" = "pywal" ] && wal -n -i "$WALLPAPER_SYMLINK" || wal --theme $HOME/configs/nord-theme.json
+# which oomox-cli >/dev/null && oomox-cli "$HOME/.cache/wal/colors-oomox" -o wal >/dev/null &
+feh --no-fehbg --bg-fill "${WALLPAPER_SYMLINK}"
 . "${XDG_CACHE_HOME}/wal/colors.sh"
 bspc config normal_border_color "$color1"
 bspc config active_border_color "$color2"

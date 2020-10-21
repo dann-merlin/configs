@@ -19,11 +19,11 @@
 
 [colors]
 background = ${xrdb:color0:#000000}
-background-alt = ${xrdb:color1:#000000}
+background-alt = ${xrdb:color5:#000000}
 foreground = ${xrdb:color7:#ffffff}
-foreground-alt = ${xrdb:color8:#ffffff}
+foreground-alt = ${xrdb:color6:#ffffff}
 ; foreground-alt = #ffffff
-primary = ${xrdb:color5:#fc9105}
+primary = ${xrdb:color2:#fc9105}
 ;02fcef
 secondary = ${xrdb:color6:#07e8fc}
 ;#e60053 ^
@@ -312,7 +312,7 @@ time-alt = %H:%M:%S
 
 format-prefix = 📅
 ; format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-foreground = ${colors.foreground}
 format-underline = ${xrdb:color4:#0a6cf5}
 
 label = %date% %time%

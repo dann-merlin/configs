@@ -4,7 +4,7 @@ xrandr --dpi 120
 export AWT_TOOLKIT=MToolkit
 export XDG_SESSION_TYPE=x11
 export GTK_THEME=Adwaita:dark
-export QT_STYLE_OVERRIDE=adwaita:dark
+export QT_STYLE_OVERRIDE=Adwaita-Dark
 [ -f $HOME/.config/bspwm/bspwmenv ] && source "$HOME/.config/bspwm/bspwmenv"
 [ -f $HOME/.config/X11/Xresources ] && xrdb $HOME/.config/X11/Xresources
 killall sxhkd
@@ -13,6 +13,7 @@ while pgrep -u "$(whoami)" -x sxhkd; do sleep 1; done
 sxhkd &
 start_compositor &
 autostart
+ln -s $HOME/bin/notificate.sh.bak $HOME/bin/notificate.sh
 
 bspc config remove_unplugged_monitors true
 bspc config remove_disabled_monitors true
