@@ -53,7 +53,6 @@ alias mnt='bashmount'
 alias reload_clock='sudo ntpd -qg'
 alias ncmpcpp='ncmpcpp -c $XDG_CONFIG_DIR/ncmpcpp/config'
 alias tmux="tmux -f $XDG_CONFIG_DIR/tmux/tmux.conf"
-alias la='ls -laa'
 alias spt='pgrep spotifyd >/dev/null || systemctl --user restart spotifyd.service; spt'
 
 alias log="git log --oneline --graph --all"
@@ -74,7 +73,10 @@ if which exa ; then
 	else
 		alias ls='exa'
 	fi
+else
+	alias ls='ls --color=auto'
 fi >/dev/null 2>&1
+alias la='ls -laa'
 
 silent_bg() {
 	$@ >/dev/null 2>&1 & disown
