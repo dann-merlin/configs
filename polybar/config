@@ -431,13 +431,13 @@ menu-3-2-exec = $HOME/configs/rotate/disabletouchpad
 menu-3-3 = do it all
 menu-3-3-exec = $HOME/configs/rotate/doitall
 
-[module/spotify]
-type = custom/script
-interval = 1
-; format-prefix = ""
-format = <label>
-exec = $configsdir/polybar/modules/spotify
-format-underline = #1db954
+; [module/spotify]
+; type = custom/script
+; interval = 1
+; ; format-prefix = ""
+; format = <label>
+; exec = $configsdir/polybar/modules/spotify
+; format-underline = #1db954
 
 [module/onboard]
 type = custom/text
