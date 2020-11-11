@@ -72,6 +72,10 @@ if !exists('g:vscode')
 	" Plugin 'vim-syntastic/syntastic'
 	""
 
+	"" Formatting
+	Plugin 'editorconfig/editorconfig-vim'
+	""
+
 	"" Usability improvements ""
 	Plugin 'othree/xml.vim'
 	Plugin 'tpope/vim-surround'
