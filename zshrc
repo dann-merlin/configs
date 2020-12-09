@@ -209,7 +209,7 @@ setopt INTERACTIVE_COMMENTS
 MOUNTS="/run/media/$USER"
 
 [ -f "${ZDOTDIR}/zsh_aliases" ] && source "${ZDOTDIR}/zsh_aliases"
-[ -f "$HOME/.config/zsh/local_aliases" ] && source "$HOME/.config/zsh/local_aliases"
+[ -f "${ZDOTDIR}/local_aliases" ] && source "${ZDOTDIR}/local_aliases"
 
 # Load zsh-syntax-highlighting
 typeset -A ZSH_HIGHLIGHT_STYLES
