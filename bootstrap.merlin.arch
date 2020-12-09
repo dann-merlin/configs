@@ -171,7 +171,7 @@ def createUsers():
             created_one = True
 
 def installApplications():
-    programs = ['networkmanager', 'sudo', 'tmux', 'vim', 'grub', 'efibootmgr', 'bspwm', 'sxhkd', 'picom', 'git', 'base-devel', 'bspwm', 'alsa-tools', 'dash', 'okular', 'sxiv', 'fzf', 'firefox', 'htop', 'jq', 'exa', 'w3m', 'man-db', 'mediainfo', 'mlocate', 'mpv', 'neovim', 'python-pynvim', 'pdfgrep', 'reptyr', 'rofi', 'dmenu', 'rsync', 'shellcheck', 'unp', 'wget', 'curl', 'zip', 'zsh-autosuggestions', 'zsh', 'zsh-autosuggestions', 'zsh-completions', 'zsh-syntax-highlighting', 'youtube-dl']
+    programs = ['xorg', 'xorg-apps', 'networkmanager', 'sudo', 'tmux', 'vim', 'grub', 'efibootmgr', 'bspwm', 'sxhkd', 'picom', 'git', 'base-devel', 'bspwm', 'alsa-tools', 'dash', 'okular', 'sxiv', 'fzf', 'firefox', 'htop', 'jq', 'exa', 'w3m', 'man-db', 'mediainfo', 'mlocate', 'mpv', 'neovim', 'python-pynvim', 'pdfgrep', 'reptyr', 'rofi', 'dmenu', 'rsync', 'shellcheck', 'unp', 'wget', 'curl', 'zip', 'zsh-autosuggestions', 'zsh', 'zsh-autosuggestions', 'zsh-completions', 'zsh-syntax-highlighting', 'youtube-dl']
     command = ['pacman', '-Sy', '--needed']
     subprocess.run(command + programs)
     subprocess.run("sed --in-place -e 's;^# %wheel ALL=(ALL) ALL$;%wheel ALL=(ALL) ALL;' /etc/sudoers", shell=True)
@@ -203,5 +203,7 @@ def __main__():
     createUsers()
     installApplications()
     installAurApplications()
+
+    # TODO call configuration script (maybe rewrite as python module)
 
 __main__()
