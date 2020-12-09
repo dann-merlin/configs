@@ -72,6 +72,10 @@ if !exists('g:vscode')
 	" Plugin 'vim-syntastic/syntastic'
 	""
 
+	"" HexEditor ""
+	Plugin 'fidian/hexmode'
+	""
+
 	"" Formatting
 	Plugin 'editorconfig/editorconfig-vim'
 	""
