@@ -3,6 +3,10 @@
 WALLPAPER_SYMLINK="$(xdg-user-dir PICTURES)/wallpaper"
 WALLPAPERS_DIR="$(xdg-user-dir WALLPAPER)"
 
+if ! readlink -f "${WALLPAPERS_DIR}" >/dev/null 2>&1; then
+	WALLPAPERS_DIR="${HOME}/configs/wallpapers/"
+fi
+
 delete_current_wallpaper() {
 	abs_path=$(readlink -f "$WALLPAPER_SYMLINK")
 	rm -f "$abs_path"
