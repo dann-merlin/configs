@@ -67,6 +67,13 @@ alias copy='xclip -selection clipboard'
 alias paste='xclip -o -selection clipboard'
 alias cpf='fzf --height 40% | xclip -selection clipboard'
 
+ytplay() {
+	while read search_term; do
+		pkill mpv
+		youtube-dl --audio-quality 0 "ytsearch:${search_term}" -o - | mpv --no-terminal - &
+	done
+}
+
 if which exa ; then
 	if exa --icons; then
 		alias ls='exa --icons'
