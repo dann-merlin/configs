@@ -32,6 +32,7 @@ export ADB_VENDOR_KEY="$XDG_CONFIG_HOME/android"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 export BOOST_ROOT='/usr'
+export BROWSER='firefox'
 
 appendpath "$HOME/.mam"
 appendpath "$CARGO_HOME/bin"
