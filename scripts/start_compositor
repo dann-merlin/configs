@@ -11,14 +11,14 @@ fi 2>/dev/null
 
 startPicom() {
 	echo "starting $programname..."
-	if which "$programname"; then
-		killall "$programname"
-		while pgrep -u "$(whoami)" -x "$programname"; do sleep 1; done
+	if which "$programname" >/dev/null; then
+		killall "$programname" >/dev/null 2>&1
+		while pgrep -u "$(whoami)" -x "$programname" >/dev/null; do sleep 1; done
 		# query=$(lspci -vmmk -d "1002:" | grep "vfio-pci" -c)	#1002 is the vendor id of amd gpus
 		# [ "$query" = 2 ] && exit
 		"$programname" -b --experimental-backends --config "$XDG_CONFIG_HOME/picom.conf" || \
 		"$programname" -b --config "$XDG_CONFIG_HOME/picom.conf"
-	fi >/dev/null 2>&1
+	fi >"$(getent passwd "$(id -un 1000)" | cut -d : -f 6 -)/.picom.err" 2>&1
 }
 
 checkBlur() {
