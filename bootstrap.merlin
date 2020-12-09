@@ -90,7 +90,7 @@ def setPassword():
         print("Something went wrong. Try again.")
 
 #def prepareEFIPartition():
-#    
+#
 #
 #def installGRUB():
 #    efi_path = prepareEFIPartition()
@@ -101,9 +101,9 @@ def setPassword():
 #        else:
 #            die("I can't handle non UEFI systems...")
 #
-#    
 #
-#    
+#
+#
 #    subprocess.run(["pacman", "-S", "grub", "efibootmgr"])
 #    subprocess.run(["grub-install", "--target=x86_64-efi", "--efi-directory="])
 #
@@ -189,7 +189,7 @@ def installAurApplications():
     env = os.environ
     env['HOME'] = user.pw_dir
     subprocess.run("rm -rf /tmp/yay; git clone 'https://aur.archlinux.org/yay.git' /tmp/yay && cd /tmp/yay && makepkg -si", shell=True, env=env, preexec_fn=demote)
-    aur_programs = ['brave-bin', 'deadd-notification-center-bin', 'dragon-drag-and-drop', 'ly', 'mutt-wizard-git', 'polybar', 'zsh-you-should-use']
+    aur_programs = ['brave-bin', 'deadd-notification-center-bin', 'dragon-drag-and-drop', 'ly', 'mutt-wizard-git', 'polybar', 'zsh-you-should-use', 'pistol-git']
     command = ['yay', '-Sy', '--needed']
     subprocess.run(command + aur_programs, env=env, preexec_fn=demote)
 
