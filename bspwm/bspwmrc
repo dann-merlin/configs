@@ -61,6 +61,8 @@ bspc config window_gap	$_gapsize
 
 bspc config split_ratio          0.52
 
+bspc config click_to_focus any
+
 # bspc rule -a polybar layer=below
 bspc rule -a GLava layer=below sticky=on state=fullscreen
 bspc rule -a Gimp state=floating follow=on
