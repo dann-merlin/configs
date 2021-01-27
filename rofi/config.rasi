@@ -1,16 +1,16 @@
 configuration {
-/*	modi: "window,run,ssh";*/
-/*	width: 10;*/
-	/* lines: 1; */
-	columns: 1;
-	font: "Source Code Pro Light Italic 16";
-/*	bw: 1;*/
-	/* location: 1; */
-/*	padding: 5;*/
-	/* yoffset: 10; */
+	modi: "window,drun,ssh";
+	/* width: 60; */
+	lines: 8;
+	columns: 4;
+	font: "FontAwesome 16";
+	monitor: "primary";
+	location: 6;
+	/*padding: 5;*/
+	/* yoffset: -50; */
 	/* xoffset: 10; */
-/*	fixed-num-lines: true;*/
-/*	show-icons: false;*/
+	fixed-num-lines: false;
+	show-icons: true;
 	terminal: "st";
 /*	ssh-client: "ssh";*/
 /*	ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";*/
@@ -19,25 +19,24 @@ configuration {
 /*	run-shell-command: "{terminal} -e {cmd}";*/
 /*	window-command: "wmctrl -i -R {window}";*/
 /*	window-match-fields: "all";*/
-/*	icon-theme: ;*/
+	icon-theme: "Papirus";
 /*	drun-match-fields: "name,generic,exec,categories";*/
 /*	drun-show-actions: false;*/
 /*	drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";*/
 /*	disable-history: false;*/
 /*	ignored-prefixes: "";*/
-/*	sort: false;*/
-/*	sorting-method: ;*/
+	sort: true;
+	sorting-method: "fzf";
 	case-sensitive: false;
 /*	cycle: true;*/
-/*	sidebar-mode: false;*/
-/*	eh: 1;*/
+	sidebar-mode: true;
+	eh: 1; /* row height in chars */
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
 /*	combi-modi: "window,run";*/
-/*	matching: "normal";*/
+	matching: "fuzzy";
 /*	tokenize: true;*/
-/*	m: "-5";*/
 /*	line-margin: 2;*/
 /*	line-padding: 1;*/
 /*	filter: ;*/
@@ -52,15 +51,16 @@ configuration {
 /*	window-format: "{w}    {c}   {t}";*/
 /*	click-to-exit: true;*/
 /*	show-match: true;*/
-	theme: "hackerman";
+	theme: "tempus_nord";
 /*	color-normal: ;*/
 /*	color-urgent: ;*/
 /*	color-active: ;*/
 /*	color-window: ;*/
-/*	max-history-size: 25;*/
+	max-history-size: 100;
 /*	combi-hide-mode-prefix: false;*/
 /*	matching-negate-char: '-' /* unsupported */;*/
 /*	cache-dir: ;*/
+	window-thumbnail: true;
 /*	pid: "/run/user/1000/rofi.pid";*/
 /*	display-window: ;*/
 /*	display-windowcd: ;*/

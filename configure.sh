@@ -42,8 +42,9 @@ ln -sf "$CFG_DIR/sxhkd" "${XDG_CONFIG_HOME}/sxhkd"
 # rofi
 rm -rf "${XDG_CONFIG_HOME}/rofi"
 mkdir -p "${XDG_CONFIG_HOME}/rofi"
-ln -sf "$CFG_DIR/config.rasi" "${XDG_CONFIG_HOME}/rofi"
-ln -sf "$CFG_DIR/hackerman.rasi" "${XDG_CONFIG_HOME}/rofi"
+ln -sf "$CFG_DIR/rofi/config.rasi" "${XDG_CONFIG_HOME}/rofi"
+ln -sf "$CFG_DIR/rofi/hackerman.rasi" "${XDG_CONFIG_HOME}/rofi"
+ln -sf "$CFG_DIR/rofi/tempus_nord.rasi" "${XDG_CONFIG_HOME}/rofi"
 
 mkdir -p "$HOME/bin"
 ln -sf \
