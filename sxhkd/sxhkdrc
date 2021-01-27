@@ -9,13 +9,19 @@ alt + shift + r
 super + Return
 	st -e tmux -f "$HOME/.config/tmux/tmux.conf"
 
-# program launcher
+# rofi
 super + d
-	rofi -show run
-#dmenu_run
+	rofi -show drun
 
-alt + r
-	resize_screen.sh
+super + w
+	rofi -show window
+
+super + F
+	rofi -no-sidebar-mode -modi file-browser -show file-browser
+
+# What was this again?
+# alt + r
+# 	resize_screen.sh
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -197,25 +203,6 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-# Audio
-XF86Audio{Lower,Raise}Volume
-	sh -c "pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ {-,+}2%"
-
-XF86AudioMute
-	pactl set-sink-mute @DEFAULT_SINK@ toggle
-
-#Multimedia
-XF86Calculator
-	st -e python
-
-# Brightness
-# XF86MonBrightness{Down,Up} + {_,shift}
-#	 xbacklight {-dec,-inc} {0.2,2}
-XF86MonBrightnessDown + {_,shift}
-	brightnessctl s {1-,2%-}
-XF86MonBrightnessUp + {_,shift}
-	brightnessctl s {1+,2%+}
-
 # Launch Programs
 
 # edit scripts and binaries
@@ -268,3 +255,33 @@ alt + shift + d
 	setxkbmap de,us
 alt + shift + u
 	setxkbmap us,de
+
+# special keys
+
+# Playerctl
+XF86Audio{Play,Stop,Next,Prev}
+	playerctl {play-pause,stop,next,previous}
+
+# Change Volume
+XF86Audio{Lower,Raise}Volume
+	sh -c "pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ {-,+}2%"
+
+# Toggle Audio Mute
+XF86AudioMute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Calculator
+XF86Calculator
+	st -e python
+
+# Brightness
+# XF86MonBrightness{Down,Up} + {_,shift}
+#	 xbacklight {-dec,-inc} {0.2,2}
+XF86MonBrightnessDown + {_,shift}
+	brightnessctl s {1-,2%-}
+XF86MonBrightnessUp + {_,shift}
+	brightnessctl s {1+,2%+}
+
+# Mail
+XF86Mail
+	st -e 'neomutt'
