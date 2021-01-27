@@ -12,6 +12,7 @@ def die(death_string):
     print(str(death_string), file=sys.stderr)
     sys.exit(1)
 
+
 def listOptions(question, options):
     while True:
         print(question)
@@ -20,28 +21,47 @@ def listOptions(question, options):
             print(str(index) + ": " + option)
             index += 1
         try:
-            selectedIndex = int(input("Select one option by writing its number here: "))
+            selectedIndex = int(
+                input("Select one option by writing its number here: "))
         except ValueError:
             print("That's not a number. Let's try again...")
             continue
         if selectedIndex <= 0 or selectedIndex > len(options):
-            print("There is no option " + str(selectedIndex) + ". Let's try again...")
+            print(
+                "There is no option " +
+                str(selectedIndex) +
+                ". Let's try again...")
             continue
         return options[selectedIndex - 1]
+
 
 def setTimezone():
     if input("Do you want to set your timezone? (Yes/no) ").lower() == "no":
         print("Don't set timezone...")
         return
     while True:
-        timezone_input = ''.join(c for c in input("What timezone are you in? ") if not c == "'")
-        matching_timezones = subprocess.run("timedatectl --no-pager list-timezones | grep -i '" + timezone_input + "'", capture_output=True, text=True, shell=True).stdout.split('\n')[:-1]
+        timezone_input = ''.join(c for c in input(
+            "What timezone are you in? ") if not c == "'")
+        matching_timezones = subprocess.run(
+            "timedatectl --no-pager list-timezones | grep -i '" +
+            timezone_input +
+            "'",
+            capture_output=True,
+            text=True,
+            shell=True).stdout.split('\n')[
+            :-
+            1]
 
         if len(matching_timezones) == 0:
-            print("No timezone was matching \"" + timezone_input + "\". Try again.")
+            print(
+                "No timezone was matching \"" +
+                timezone_input +
+                "\". Try again.")
             continue
 
-        selected = listOptions("These timezones match your query. Which do you mean?", matching_timezones + ["None of the above"])
+        selected = listOptions(
+            "These timezones match your query. Which do you mean?",
+            matching_timezones + ["None of the above"])
         if selected == "None of the above":
             print("Okay, let's try again.")
             continue
@@ -49,24 +69,31 @@ def setTimezone():
     subprocess.run(["timedatectl", "set-timezone", selected])
     subprocess.run(["hwclock", "--systohc"])
 
+
 def genLocale():
-    subprocess.run("sed --in-place -e 's;^#en_US.UTF-8 UTF-8\s*$;en_US.UTF-8 UTF-8;' /etc/locale.gen", shell=True)
+    subprocess.run(
+        r"sed --in-place -e 's;^#en_US.UTF-8 UTF-8\s*$;en_US.UTF-8 UTF-8;' " +
+        "/etc/locale.gen",
+        shell=True)
     subprocess.run("locale-gen")
     with open("/etc/locale.conf", "w") as locale_file:
         locale_file.write("LANG=en_US.UTF-8")
 
+
 def networkConfiguration():
-    if input("Do you want to configure your network? (Yes/no) ").lower() == "no":
+    if input("Do you want to configure your network? " +
+             "(Yes/no) ").lower() == "no":
         print("Don't configure network...")
         return
     while True:
         hostname = input("What should be your hostname? ")
+
         def is_valid_hostname(hostname):
             if len(hostname) > 255:
                 return False
             if hostname[-1] == ".":
                 hostname = hostname[:-1]
-            allowed = re.compile("(?!=)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
+            allowed = re.compile(r"(?!=)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
             return all(allowed.match(x) for x in hostname.split("."))
         if is_valid_hostname(hostname):
             break
@@ -75,11 +102,14 @@ def networkConfiguration():
         hostname_file.write(hostname)
 
     with open("/etc/hosts", "w") as hosts_file:
-        hosts_file.write("\n\n127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t" + \
-                hostname + ".localdomain\t" + hostname)
+        hosts_file.write(
+            "\n\n127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t" +
+            hostname + ".localdomain\t" + hostname)
+
 
 def setPassword():
-    if input("Do you want to set your root password? (Yes/no) ").lower() == "no":
+    if input("Do you want to set your root password? "
+             + "(Yes/no) ").lower() == "no":
         print("Not setting a new password...")
         return
     while True:
@@ -89,41 +119,28 @@ def setPassword():
             return
         print("Something went wrong. Try again.")
 
-#def prepareEFIPartition():
-#
-#
-#def installGRUB():
-#    efi_path = prepareEFIPartition()
-#    if not efi_path:
-#        inp = input("This system does not seem to be a UEFI system. Maybe you haven't created the EFI Partition yet? I can't handle this. Do you just want to skip installing the bootloader? You will have to do it yourself, if you do. (yes/no)")
-#        if inp == "yes":
-#            return
-#        else:
-#            die("I can't handle non UEFI systems...")
-#
-#
-#
-#
-#    subprocess.run(["pacman", "-S", "grub", "efibootmgr"])
-#    subprocess.run(["grub-install", "--target=x86_64-efi", "--efi-directory="])
-#
-#def installBootloader(bootloader):
-#    if bootloader == "GRUB":
-#        installGRUB()
-#        return
-#    die("I don't know the specified bootloader: " + str(bootloader))
 
 def createUser():
     username = input("What should be the username? ")
     # TODO check if username is valid
-    has_homedir = input("Should " + username + " have a home directory? (Yes/no)").lower() != "no"
-    has_sudo_rights = input("Should " + username + " have sudo rights? (yes/No)").lower() == "yes"
+    has_homedir = input(
+        "Should " +
+        username +
+        " have a home directory? (Yes/no)").lower() != "no"
+    has_sudo_rights = input(
+        "Should " +
+        username +
+        " have sudo rights? (yes/No)").lower() == "yes"
     full_name = input("Full name (can be left empty): ")
     command_list = ["useradd"]
     print("Please check if this is correct:")
     print("You want to create user \"" + username + "\".")
-    print("You" + ("" if has_homedir else " don't") + " want to the new user to have a new home directory.")
-    print(username + " should" + ("" if has_sudo_rights else "n't") + " have sudo rights.")
+    print("You" + ("" if has_homedir else " don't") +
+          " want to the new user to have a new home directory.")
+    print(username +
+          " should" +
+          ("" if has_sudo_rights else "n't") +
+          " have sudo rights.")
     command_list += ["-m"]
     if full_name == '':
         print("You don't want to give the user a full name.")
@@ -160,38 +177,72 @@ def createUser():
         print("Something went wrong. Try again.")
     return True
 
+
 def createUsers():
     created_one = False
     while True:
-        create_another_user = input("Do you want to create " + ("another" if created_one else "a") + " user? (yes/No) ").lower() == "yes"
+        create_another_user = input(
+            "Do you want to create " + ("another" if created_one else "a") +
+            " user? (yes/No) ").lower() == "yes"
         if not create_another_user:
             break
 
         if createUser():
             created_one = True
 
+
 def installApplications():
-    programs = ['xorg', 'xorg-apps', 'networkmanager', 'sudo', 'tmux', 'vim', 'grub', 'efibootmgr', 'bspwm', 'sxhkd', 'picom', 'git', 'base-devel', 'bspwm', 'alsa-tools', 'dash', 'okular', 'sxiv', 'fzf', 'firefox', 'htop', 'jq', 'exa', 'w3m', 'man-db', 'mediainfo', 'mlocate', 'mpv', 'neovim', 'python-pynvim', 'pdfgrep', 'reptyr', 'rofi', 'dmenu', 'rsync', 'shellcheck', 'unp', 'wget', 'curl', 'zip', 'zsh-autosuggestions', 'zsh', 'zsh-autosuggestions', 'zsh-completions', 'zsh-syntax-highlighting', 'youtube-dl']
+    programs = [
+        'xorg', 'xorg-apps', 'networkmanager', 'sudo', 'tmux', 'vim', 'grub',
+        'efibootmgr', 'bspwm', 'sxhkd', 'picom', 'git', 'base-devel', 'bspwm',
+        'alsa-tools', 'dash', 'okular', 'sxiv', 'fzf', 'firefox', 'htop', 'jq',
+        'exa', 'w3m', 'man-db', 'mediainfo', 'mlocate', 'mpv', 'neovim',
+        'python-pynvim', 'pdfgrep', 'reptyr', 'rofi', 'dmenu', 'rsync',
+        'shellcheck', 'unp', 'wget', 'curl', 'zip', 'zsh-autosuggestions',
+        'zsh', 'zsh-autosuggestions', 'zsh-completions',
+        'zsh-syntax-highlighting', 'youtube-dl', 'flameshot', 'rofimoji',
+        'rofi-calc']
     command = ['pacman', '-Sy', '--needed']
     subprocess.run(command + programs)
-    subprocess.run("sed --in-place -e 's;^# %wheel ALL=(ALL) ALL$;%wheel ALL=(ALL) ALL;' /etc/sudoers", shell=True)
+    subprocess.run(
+        "sed --in-place -e 's;^# %wheel ALL=(ALL) ALL$;" +
+        "%wheel ALL=(ALL) ALL;' /etc/sudoers",
+        shell=True)
 
 
 def installAurApplications():
     try:
         user = pwd.getpwuid(1000)
-    except:
+    except BaseException:
         print("No default user available. Aborting...")
         return
+
     def demote():
         os.setgid(user.pw_gid)
         os.setuid(user.pw_uid)
     env = os.environ
     env['HOME'] = user.pw_dir
-    subprocess.run("rm -rf /tmp/yay; git clone 'https://aur.archlinux.org/yay.git' /tmp/yay && cd /tmp/yay && makepkg -si", shell=True, env=env, preexec_fn=demote)
-    aur_programs = ['brave-bin', 'deadd-notification-center-bin', 'dragon-drag-and-drop', 'ly', 'mutt-wizard-git', 'polybar', 'zsh-you-should-use', 'pistol-git']
+    subprocess.run(
+        "rm -rf /tmp/yay; git clone 'https://aur.archlinux.org/yay.git' "
+        + "/tmp/yay && cd /tmp/yay && makepkg -si",
+        shell=True,
+        env=env,
+        preexec_fn=demote)
+    aur_programs = [
+        'brave-bin',
+        'deadd-notification-center-bin',
+        'dragon-drag-and-drop',
+        'ly',
+        'mutt-wizard-git',
+        'polybar',
+        'zsh-you-should-use',
+        'pistol-git',
+        'pass-clip',
+        'rofi-bluetooth-git',
+        'rofi-power-menu']
     command = ['yay', '-Sy', '--needed']
     subprocess.run(command + aur_programs, env=env, preexec_fn=demote)
+
 
 def __main__():
     setTimezone()
@@ -205,5 +256,6 @@ def __main__():
     installAurApplications()
 
     # TODO call configuration script (maybe rewrite as python module)
+
 
 __main__()

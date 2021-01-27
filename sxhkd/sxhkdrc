@@ -19,6 +19,30 @@ super + w
 super + F
 	rofi -no-sidebar-mode -modi file-browser -show file-browser
 
+super + p
+	pass clip --rofi
+
+super + o
+	rofimoji
+
+super + c
+	rofi -show calc -modi calc -no-show-match -no-sort
+
+super + S
+	"${configsdir}/scripts/rofi-systemd"
+
+super + B
+	lsmod | grep btusb && rofi-bluetooth
+
+super + shift + Escape
+	rofi -show power-menu -no-sidebar-mode -modi 'power-menu:rofi-power-menu --choices=shutdown/reboot/suspend/hibernate/logout' -width 12
+
+super + v
+	sh "${configsdir}/scripts/rofi-virtualbox.sh"
+
+control + F
+	sh "${configsdir}/scripts/web-search.sh"
+
 # What was this again?
 # alt + r
 # 	resize_screen.sh
@@ -94,9 +118,9 @@ super + shift + r
 super + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
-# set the node flags (removed locked)
-alt + shift + {s,p}
-	bspc node -g {sticky,private}
+# set the node flags (removed locked and private)
+alt + shift + s
+	bspc node -g sticky
 
 # mark node
 alt + shift + m
@@ -121,8 +145,8 @@ super + {p,comma,period}
 	bspc node -f @{parent,first,second}
 
 # focus the next/previous node in the current desktop
-super + {_,shift + }c
-	bspc node -f {next,prev}.local
+# super + {_,shift + }c
+# 	bspc node -f {next,prev}.local
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
@@ -272,7 +296,7 @@ XF86AudioMute
 
 # Calculator
 XF86Calculator
-	st -e python
+	rofi -show calc -modi calc -no-show-match -no-sort
 
 # Brightness
 # XF86MonBrightness{Down,Up} + {_,shift}
