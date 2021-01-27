@@ -1,11 +1,14 @@
 #!/bin/sh
 
 start_if_absent() {
-pgrep $1 || $1 &
+pgrep $1 || $@ &
 }
 
 if true; then
-start_if_absent telegram-desktop
-start_if_absent signal-desktop
-sh -c 'pgrep discord-canary || while discord-canary; do :; done' &
+	if ! tmux list-sessions | grep '^Telegram:' -q; then
+		st -e tmux new-session -s Telegram tg &
+	fi
+	start_if_absent signal-desktop
+	start_if_absent threemawebqt
+	sh -c 'pgrep discord || while discord; do :; done' &
 fi >/dev/null 2>&1
