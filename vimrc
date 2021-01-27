@@ -36,6 +36,10 @@ if !exists('g:vscode')
 	Plugin 'rdnetto/ycm-generator'
 	""
 
+	"" GDB ""
+	Plugin 'dann-merlin/Conque-GDB'
+	""
+
 	"" Python auto completion ""
 	Plugin 'davidhalter/jedi-vim'
 	""
@@ -70,6 +74,10 @@ if !exists('g:vscode')
 	Plugin 'octol/vim-cpp-enhanced-highlight'
 	Plugin 'rhysd/vim-clang-format'
 	" Plugin 'vim-syntastic/syntastic'
+	""
+
+	"" Python stuff ""
+	Plugin 'klen/python-mode'
 	""
 
 	"" HexEditor ""
@@ -160,13 +168,15 @@ let @v='f,mcb"tywo(void) "tpA;`c@v'
 nnoremap <leader>todofunc o// TODOk$F)b"tywo(void) "tpA;k^f(@v<CR>
 " inoremap <leader>headify <esc>0Wdt:dw$F)C);<esc>==I
 " nnoremap <leader>headify 0Wdt:dw$F)C);<esc>==I<esc>l
-nnoremap <leader>snake viwb<esc>i<CR><esc>^d0ea<CR><esc>^d0k:s;\([A-Z]\);_\l\1;ge<CR>kJ$Jx:noh<CR>b
+" nnoremap <leader>snake viwb<esc>i<CR><esc>^d0ea<CR><esc>d0k:s;\([A-Z]\);_\l\1;ge<CR>kJ$Jx:noh<CR>b
+nnoremap <leader>snake viw:s;\%V\([A-Z]\)\%V;_\l\1;ge<CR>
+nnoremap SS viw:s;\%V\([A-Z]\)\%V;_\l\1;ge<CR>
 nnoremap : q:i
 " nnoremap / q/i
 xnoremap p "_dP
 
 " vim easymotion
-map 9 <Plug>(easymotion-prefix)
+" map 9 <Plug>(easymotion-prefix)
 nmap s <Plug>(easymotion-overwin-f)
 
 " Coc Bindings
@@ -187,7 +197,7 @@ let g:clang_format#auto_format=1
 let g:ycm_min_num_of_chars_for_completion = 2
 let g:ycm_max_num_candidates = 50
 let g:ycm_max_num_identifier_candidates = 10
-let g:ycm_filetype_whitelist = {'cpp': 1, 'rust': 1, 'python': 1, 'xml': 1}
+" let g:ycm_filetype_whitelist = {'cpp': 1, 'rust': 1, 'python': 1, 'xml': 1}
 let g:ycm_error_symbol = '!'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_global_extra_conf = "~/configs/ycm_global_conf.py"
@@ -238,10 +248,12 @@ vnoremap <leader>cout yOstd::cout << <esc>pA << std::endl;
 " rasi files syntax highlighting
 autocmd BufNewFile,BufRead *.rasi setf css
 
-" Special behaviour in *.tex files
-autocmd BufEnter *.tex inoremap <buffer> <C-\> \textbackslash{}
-autocmd BufEnter *.tex inoremap <buffer> "l \glqq{}
-autocmd BufEnter *.tex inoremap <buffer> "r \grqq{}
+" Special behaviour in tex files
+autocmd FileType tex inoremap <buffer> <C-\> \textbackslash{}
+autocmd FileType tex inoremap <buffer> "l \glqq{}
+autocmd FileType tex inoremap <buffer> "r \grqq{}
+" Automatically Compile tex files
+" autocmd FileType tex VimtexCompile
 
 " Return to the same line you left off at
 augroup line_return
@@ -286,6 +298,13 @@ let g:vimtex_compiler_latexmk = {
 	\		'-interaction=nonstopmode',
 	\	],
 	\}
+let g:vimtex_complete_enabled = 1
+let g:vimtex_complete_close_braces = 1
+if !exists('g:ycm_semantic_triggers')
+let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
+au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
 
 
 " noremap <C-_> :noremap <kPlus> :res +1<CR> :noremap <kMinus> :res -1<CR>
@@ -303,6 +322,6 @@ nnoremap <silent> _ :call SetHorizontalResize()<CR>
 
 call SetHorizontalResize()
 
-let g:python_recommended_style = 0
+let g:python_recommended_style = 1
 
 set smarttab tabstop=4 softtabstop=-1 noexpandtab shiftwidth=4
