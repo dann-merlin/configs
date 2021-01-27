@@ -68,6 +68,7 @@ bspc rule -a GLava layer=below sticky=on state=fullscreen
 bspc rule -a Gimp state=floating follow=on
 bspc rule -a Steam state=floating
 bspc rule -a Spotipyne state=pseudo_tiled
-bspc rule -a mpv state=pseudo_tiled
+bspc rule -a mpv state=floating
 bspc rule -a Godot state=floating
+bspc rule -a Zathura state=tiled
 # xmodmap "${configsdir}/CapsLockEscapeSwapper"
